@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { TwitterIcon } from './icons/twitter'
-import { HomeIcon } from './icons/home-icons'
+import { TwitterIcon } from '../../components/icons/twitter'
+import { HomeIcon } from '../../components/icons/home-icons'
 
 interface HeaderProps {
   className?: string
