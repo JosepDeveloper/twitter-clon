@@ -22,6 +22,7 @@ export default function RootLayout ({
             bg-black
             px-[180px]
           `}
+          suppressHydrationWarning
       >
         {children}
       </body>
