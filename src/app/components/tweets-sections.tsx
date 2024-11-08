@@ -1,4 +1,5 @@
 import { PostTweet } from './post-tweet'
+import { Tweets } from './tweets'
 
 function TweetsSections () {
   return (
@@ -8,7 +9,7 @@ function TweetsSections () {
       </header>
 
       <section>
-        <p>Tweets Sections</p>
+        <Tweets />
       </section>
     </div>
   )

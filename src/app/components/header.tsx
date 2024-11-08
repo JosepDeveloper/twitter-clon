@@ -21,8 +21,8 @@ function Header ({ className }: HeaderProps) {
       </Link>
 
       <nav>
-        <ul>
-          <li>
+        <ul className='list-none m-0 [&>li]:mt-0'>
+          <li className=''>
             <Link
               href={'/'}
               className={`
