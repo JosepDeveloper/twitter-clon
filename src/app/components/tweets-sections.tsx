@@ -1,10 +1,10 @@
-import { PostTweetForm } from './post-tweet-form'
+import { PostTweet } from './post-tweet'
 
 function TweetsSections () {
   return (
     <div>
-      <header className='border-b border-white/20 h-40 px-6 pb-6'>
-        <PostTweetForm />
+      <header className='border-b border-white/20 min-h-40 px-6 pb-6'>
+        <PostTweet />
       </header>
 
       <section>
