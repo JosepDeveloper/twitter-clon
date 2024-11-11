@@ -4,9 +4,9 @@ import { TweetsSections } from './components/tweets-sections'
 export default function Home () {
   return (
     <div className='flex h-dvh'>
-      <Header className='w-[20%]'/>
+      <Header className='w-[20%]' />
 
-      <main className='w-[80%] border-x border-white/20 pt-5'>
+      <main className='w-[80%]'>
         <TweetsSections />
       </main>
     </div>
