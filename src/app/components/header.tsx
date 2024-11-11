@@ -8,12 +8,12 @@ interface HeaderProps {
 
 function Header ({ className }: HeaderProps) {
   return (
-    <header className={`${className} pt-5 flex flex-col gap-5`}>
+    <header className={`${className} pt-5 flex flex-col gap-5 sticky top-0 h-fit`}>
       <Link
         href='/'
         className={`
           w-[70%] p-2 rounded-full
-          flex gap-2 justify-center items-center
+          flex gap-2 justify-start items-center
           hover:bg-gray-700/65 transition-colors ease-linear
         `}
       >
@@ -27,7 +27,7 @@ function Header ({ className }: HeaderProps) {
               href={'/'}
               className={`
                 w-[50%] p-2 rounded-full
-                flex gap-2 items-center justify-around
+                flex gap-2 justify-start items-center
                 hover:bg-gray-700/65 transition-colors ease-linear
               `}
             >
