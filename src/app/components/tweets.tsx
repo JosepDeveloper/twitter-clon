@@ -1,7 +1,6 @@
 import Markdown from 'react-markdown'
 import reactGmf from 'remark-gfm'
 import remarkDirective from 'remark-directive'
-import './style/markdown.css'
 import { Avatar } from '@/components/avatar'
 
 interface TweetsProps {
