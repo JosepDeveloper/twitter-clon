@@ -19,3 +19,55 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+h1 {
+  @apply scroll-m-20 text-3xl font-extrabold tracking-tight;
+}
+
+h2 {
+  @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+}
+
+h3 {
+  @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+}
+
+h4, h5, h6 {
+  @apply scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+p {
+  @apply leading-7 [&:not(:first-child)]:mt-1;
+}
+
+table {
+  @apply w-4/5;
+}
+
+tr {
+  @apply m-0 border-t p-0;
+}
+
+th {
+  @apply border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right;
+}
+
+td {
+  @apply border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right;
+}
+
+ul {
+  @apply my-3 ml-3 list-disc [&>li]:mt-2;
+}
+
+ol {
+  @apply my-3 ml-3 list-decimal [&>li]:mt-2;
+}
+
+code {
+  @apply relative rounded font-mono text-sm font-semibold;
+}
+
+small {
+  @apply text-sm font-medium leading-none;
+}
