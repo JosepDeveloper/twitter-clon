@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 function HomeIcon () {
   const route = usePathname()
 
-  return route === '/' ? <HomeActiveIcon /> : <HomeDisabledIcon />
+  return (route === '/') ? <HomeActiveIcon /> : <HomeDisabledIcon />
 }
 
 function HomeActiveIcon () {
