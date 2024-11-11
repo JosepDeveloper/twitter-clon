@@ -2,33 +2,31 @@ import Markdown from 'react-markdown'
 import reactGmf from 'remark-gfm'
 import remarkDirective from 'remark-directive'
 import './style/markdown.css'
+import { Avatar } from '@/components/avatar'
 
-const markdown = `# Hello World
+interface TweetsProps {
+  textMarkdown: string
+  username: string
+  nickname: string
+  urlImage: string
+}
 
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less.
-
-\`sudo apt update\`
-
-| Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
-| Row 1    | Cell 2   | Cell 3   |
-| Row 2    | Cell 5   | Cell 6   |
-| Row 3    | Cell 8   | Cell 9   |
-
-
-Esto es un lista
-- Item 1
-- Item 2
-- Item 3
-`
-
-function Tweets () {
+function Tweets ({ nickname, username, textMarkdown, urlImage }: TweetsProps) {
   return (
-    <ul className='list-none m-0 [&>li]:mt-0 border-b border-white/20 px-6 pb-6'>
-      <li className=''>
-        <Markdown remarkPlugins={[reactGmf, remarkDirective]}>{markdown}</Markdown>
-      </li>
-    </ul>
+    <article className='p-2 flex gap-2'>
+      <header>
+        <Avatar src={urlImage} name={nickname} className='w-12' />
+      </header>
+
+      <div className='flex flex-col gap-2 w-full'>
+        <div className='flex gap-2 items-center justify-start'>
+          <h2 className='text-lg font-semibold tracki border-none scroll-m-none p-0 m-0'>{nickname}</h2>
+          <small className='text-sm font-extrabold text-white/30 m-0 p-0' style={{ margin: 0 }}>{username}</small>
+        </div>
+
+        <Markdown remarkPlugins={[reactGmf, remarkDirective]}>{textMarkdown}</Markdown>
+      </div>
+    </article>
   )
 }
 
