@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { TwitterIcon } from '../../components/icons/twitter'
 import { HomeIcon } from '../../components/icons/home-icons'
+import { SearchIcons } from '@/components/icons/search-icons'
 
 interface HeaderProps {
   className?: string
@@ -22,7 +23,7 @@ function Header ({ className }: HeaderProps) {
 
       <nav>
         <ul className='list-none m-0 [&>li]:mt-0'>
-          <li className=''>
+          <li>
             <Link
               href={'/'}
               className={`
@@ -32,6 +33,19 @@ function Header ({ className }: HeaderProps) {
               `}
             >
               <HomeIcon /> <span className='font-medium'>Inicio</span>
+            </Link>
+
+          </li>
+          <li>
+            <Link
+            href={'#'}
+            className={`
+              w-[50%] p-2 rounded-full
+              flex gap-2 justify-start items-center
+              hover:bg-gray-700/65 transition-colors ease-linear
+            `}
+            >
+              <SearchIcons/> <span className='font-medium'>Explorar</span>
             </Link>
           </li>
         </ul>
