@@ -1,10 +1,30 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { TweestType } from '../types/tweet.types'
 
-function FormTweet () {
+interface FormTweetProps {
+  updateTweets: (newTweet: TweestType) => void
+}
+
+function FormTweet ({ updateTweets }: FormTweetProps) {
   const [text, setText] = useState('')
 
   const colorButton = text.length !== 0 ? 'bg-blue-600' : 'bg-[#1a4e78] text-white/50'
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log(event)
+
+    const newTweet: TweestType = {
+      textMarkdown: text,
+      username: '@joseoviedo',
+      nickname: 'Jose Oviedo',
+      urlImage: 'https://i.pravatar.cc/150?u=a042581f4e29026024d'
+    }
+
+    updateTweets(newTweet)
+    setText('')
+  }
 
   useEffect(() => {
     const textarea = document.getElementById('tweet-input')
@@ -36,7 +56,7 @@ function FormTweet () {
   }, [text])
 
   return (
-    <form className="w-11/12 h-fit flex flex-col items-end gap-3">
+    <form className="w-11/12 h-fit flex flex-col items-end gap-3" onSubmit={handleSubmit}>
       <textarea
         id='tweet-input'
         className={`
