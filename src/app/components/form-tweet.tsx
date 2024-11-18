@@ -8,12 +8,11 @@ interface FormTweetProps {
 
 function FormTweet ({ updateTweets }: FormTweetProps) {
   const [text, setText] = useState('')
-
   const colorButton = text.length !== 0 ? 'bg-blue-600' : 'bg-[#1a4e78] text-white/50'
+  const textarea = document.getElementById('tweet-input')
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(event)
 
     const newTweet: TweestType = {
       textMarkdown: text,
@@ -24,10 +23,14 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
 
     updateTweets(newTweet)
     setText('')
+
+    if (textarea) {
+      textarea.style.height = '80px'
+    }
   }
 
   useEffect(() => {
-    const textarea = document.getElementById('tweet-input')
+
     const button = document.getElementById('tweet-button')
 
     textarea?.addEventListener('input', () => {
@@ -47,6 +50,7 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
     textarea?.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         setText('')
+        textarea.style.height = '80px'
       }
 
       if (e.ctrlKey && e.key === 'Enter' && text.length !== 0) {
