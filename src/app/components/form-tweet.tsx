@@ -1,6 +1,7 @@
 'use client'
 import { KeyboardEvent, useRef, useState } from 'react'
-import { TweestType } from '../types/tweet.types'
+import { TweestType, urlImage } from '../types/tweet.types'
+import { useSession } from 'next-auth/react'
 
 interface FormTweetProps {
   updateTweets: (newTweet: TweestType) => void
@@ -10,17 +11,22 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
+  const { data: session } = useSession()
 
   const colorButton = text.length !== 0 ? 'bg-blue-600' : 'bg-[#1a4e78] text-white/50'
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!session) {
+      alert('Debes estar conectado para publicar un tweet')
+      return
+    }
 
     const newTweet: TweestType = {
       textMarkdown: text,
       username: '@joseoviedo',
-      nickname: 'Jose Oviedo',
-      urlImage: 'https://i.pravatar.cc/150?u=a042581f4e29026024d'
+      nickname: session.user?.name as string,
+      urlImage: session.user?.image as urlImage
     }
 
     updateTweets(newTweet)
