@@ -2,6 +2,7 @@
 import { useTweets } from '../hooks/use-tweets'
 import { PostTweet } from './post-tweet'
 import { Tweets } from './tweets'
+import { WrapperSessionPrivider } from './wrapper-session-provider'
 
 function TweetsSections () {
   const { tweets, updateTweets } = useTweets()
@@ -9,7 +10,9 @@ function TweetsSections () {
   return (
     <div className='border-x border-white/20 pt-5'>
       <header className=' min-h-40 px-6 pb-6'>
-        <PostTweet updateTweets={updateTweets} />
+        <WrapperSessionPrivider>
+          <PostTweet updateTweets={updateTweets} />
+        </WrapperSessionPrivider>
       </header>
 
       <section>
@@ -19,7 +22,6 @@ function TweetsSections () {
               <li key={tweet.id} className='py-2'>
                 <Tweets
                   textMarkdown={tweet.textMarkdown}
-                  username={tweet.username}
                   nickname={tweet.nickname}
                   urlImage={tweet.urlImage}
                 />
