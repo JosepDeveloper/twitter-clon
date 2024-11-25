@@ -2,13 +2,14 @@ import Link from 'next/link'
 import { TwitterIcon } from '../../components/icons/twitter'
 import { HomeIcon } from '../../components/icons/home-icons'
 import { SearchIcons } from '@/components/icons/search-icons'
-import { ButtonLogin } from './button-login'
+import { ButtonSession } from './button-session'
+import { WrapperSessionPrivider } from './wrapper-session-provider'
 
 interface HeaderProps {
   className?: string
 }
 
-function Header ({ className }: HeaderProps) {
+async function Header ({ className }: HeaderProps) {
   return (
     <header className={`${className} pt-5 flex flex-col sticky top-0 h-fit justify-between gap-10`}>
       <div>
@@ -54,7 +55,9 @@ function Header ({ className }: HeaderProps) {
         </nav>
       </div>
 
-      <ButtonLogin />
+      <WrapperSessionPrivider>
+        <ButtonSession />
+      </WrapperSessionPrivider>
     </header>
   )
 }
