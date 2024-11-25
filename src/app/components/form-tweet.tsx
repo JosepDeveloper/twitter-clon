@@ -57,11 +57,13 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
     const textarea = textareaRef.current
     const button = buttonRef.current
 
+    if (e.key === 'Backspace') {
+      if (textarea) { textarea.style.height = '80px' }
+    }
+
     if (e.key === 'Escape') {
       setText('')
-      if (textarea) {
-        textarea.style.height = '80px'
-      }
+      if (textarea) { textarea.style.height = '80px' }
     }
 
     if (e.ctrlKey && e.key === 'Enter' && text.length !== 0) {
