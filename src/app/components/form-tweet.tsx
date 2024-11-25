@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { KeyboardEvent, useRef, useState } from 'react'
 import { TweestType } from '../types/tweet.types'
 
 interface FormTweetProps {
@@ -8,8 +8,10 @@ interface FormTweetProps {
 
 function FormTweet ({ updateTweets }: FormTweetProps) {
   const [text, setText] = useState('')
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+
   const colorButton = text.length !== 0 ? 'bg-blue-600' : 'bg-[#1a4e78] text-white/50'
-  const textarea = document.getElementById('tweet-input')
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -24,16 +26,15 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
     updateTweets(newTweet)
     setText('')
 
-    if (textarea) {
-      textarea.style.height = '80px'
+    if (textareaRef.current) {
+      textareaRef.current.style.height = '80px'
     }
   }
 
-  useEffect(() => {
+  const handleInput = () => {
+    const textarea = textareaRef.current
 
-    const button = document.getElementById('tweet-button')
-
-    textarea?.addEventListener('input', () => {
+    if (textarea) {
       if (text.length === 0) {
         textarea.style.height = '80px'
       }
@@ -41,28 +42,38 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
       const height = textarea.scrollHeight
       textarea.style.height = '80px'
       textarea.style.height = height + 'px'
-    })
+    }
+  }
 
-    textarea?.addEventListener('focus', () => {
+  const handleFocus = () => {
+    const textarea = textareaRef.current
+
+    if (textarea) {
       textarea.style.height = '80px'
-    })
+    }
+  }
 
-    textarea?.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        setText('')
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    const textarea = textareaRef.current
+    const button = buttonRef.current
+
+    if (e.key === 'Escape') {
+      setText('')
+      if (textarea) {
         textarea.style.height = '80px'
       }
+    }
 
-      if (e.ctrlKey && e.key === 'Enter' && text.length !== 0) {
-        button?.click()
+    if (e.ctrlKey && e.key === 'Enter' && text.length !== 0) {
+      if (button) {
+        button.click()
       }
-    })
-  }, [text])
-
+    }
+  }
   return (
     <form className="w-11/12 h-fit flex flex-col items-end gap-3" onSubmit={handleSubmit}>
       <textarea
-        id='tweet-input'
+        ref={textareaRef}
         className={`
           bg-black
           w-full min-h-20 max-h-60
@@ -74,11 +85,14 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
         onChange={(e) => setText(e.target.value)}
         value={text}
         placeholder="¡¿Qué está pasando?!"
+        onInput={handleInput}
+        onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
       >
       </textarea>
 
       <button
-        id='tweet-button'
+        ref={buttonRef}
         className={`${colorButton} py-2 px-4 font-semibold rounded-full text-white`}
         disabled={text.length === 0}
       >
