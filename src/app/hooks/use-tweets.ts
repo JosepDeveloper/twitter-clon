@@ -25,7 +25,6 @@ const hello = 'Hello World!'
 console.log(hello)
 \`\`\`
     `,
-    username: '@joseoviedo',
     nickname: 'Jose Oviedo',
     urlImage: 'https://i.pravatar.cc/150?u=a042581f4e29026024d'
   },
@@ -46,14 +45,12 @@ lorem ipsum dolor ammet sit amet, consectetur adipiscing elit.
 - Lista 2
 - Lista 3
     `,
-    username: '@isaacmp',
     nickname: 'Isaac Leon',
     urlImage: 'https://i.pravatar.cc/150?u=a04258a2462d826712d'
   },
   {
     id: 3,
     textMarkdown: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur et ligula. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.',
-    username: '@jadapecode',
     nickname: 'Javier Perez',
     urlImage: 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
   }
