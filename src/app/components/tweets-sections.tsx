@@ -1,18 +1,23 @@
 'use client'
+import { useSession } from 'next-auth/react'
 import { useTweets } from '../hooks/use-tweets'
 import { PostTweet } from './post-tweet'
 import { Tweets } from './tweets'
-import { WrapperSessionPrivider } from './wrapper-session-provider'
 
 function TweetsSections () {
   const { tweets, updateTweets } = useTweets()
+  const { data: session } = useSession()
+
+  let isSession = false
+
+  if (session) {
+    isSession = true
+  }
 
   return (
     <div className='border-x border-white/20 pt-5'>
       <header className=' min-h-40 px-6 pb-6'>
-        <WrapperSessionPrivider>
-          <PostTweet updateTweets={updateTweets} />
-        </WrapperSessionPrivider>
+        <PostTweet updateTweets={updateTweets} session={isSession} username={session?.user?.name as string} imageURL={session?.user?.image as string} />
       </header>
 
       <section>
