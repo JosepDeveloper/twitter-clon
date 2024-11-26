@@ -1,17 +1,18 @@
 'use client'
 import { KeyboardEvent, useRef, useState } from 'react'
 import { TweestType, urlImage } from '../types/tweet.types'
-import { useSession } from 'next-auth/react'
 
 interface FormTweetProps {
   updateTweets: (newTweet: TweestType) => void
+  session: boolean
+  username: string
+  imageURL: string
 }
 
-function FormTweet ({ updateTweets }: FormTweetProps) {
+function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
-  const { data: session } = useSession()
 
   const colorButton = text.length !== 0 ? 'bg-blue-600' : 'bg-[#1a4e78] text-white/50'
 
@@ -24,9 +25,8 @@ function FormTweet ({ updateTweets }: FormTweetProps) {
 
     const newTweet: TweestType = {
       textMarkdown: text,
-      username: '@joseoviedo',
-      nickname: session.user?.name as string,
-      urlImage: session.user?.image as urlImage
+      nickname: username,
+      urlImage: imageURL as urlImage
     }
 
     updateTweets(newTweet)
