@@ -1,5 +1,6 @@
 import { Header } from './components/header'
 import { TweetsSections } from './components/tweets-sections'
+import { WrapperSessionPrivider } from './components/wrapper-session-provider'
 
 export default function Home () {
   return (
@@ -7,7 +8,9 @@ export default function Home () {
       <Header className='w-[20%]' />
 
       <main className='w-[80%]'>
-        <TweetsSections />
+        <WrapperSessionPrivider>
+          <TweetsSections />
+        </WrapperSessionPrivider>
       </main>
     </div>
   )
