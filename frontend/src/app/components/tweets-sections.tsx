@@ -23,8 +23,8 @@ function TweetsSections () {
       <section>
         <ul className='list-none m-0 [&>li]:mt-0 [&>li]:px-6  [&>li]:border-t [&>li]:border-white/20 border-white/20 pb-6'>
           {
-            tweets.map((tweet) => (
-              <li key={tweet.id} className='py-2'>
+            tweets.map((tweet, index) => (
+              <li key={index} className='py-2'>
                 <Tweets
                   textMarkdown={tweet.textMarkdown}
                   nickname={tweet.nickname}

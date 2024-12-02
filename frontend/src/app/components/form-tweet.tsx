@@ -1,6 +1,7 @@
 'use client'
-import { KeyboardEvent, useRef, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { TweestType, urlImage } from '../types/tweet.types'
+import { socket } from '@/lib/socket'
 
 interface FormTweetProps {
   updateTweets: (newTweet: TweestType) => void
@@ -29,6 +30,7 @@ function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProp
       urlImage: imageURL as urlImage
     }
 
+    socket.emit('chat:message', JSON.stringify(newTweet))
     updateTweets(newTweet)
     setText('')
 
@@ -78,6 +80,19 @@ function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProp
       }
     }
   }
+
+  useEffect(() => {
+    socket.on('chat:message', (data) => {
+      const newTweet = JSON.parse(data)
+
+      console.log(newTweet)
+      updateTweets(newTweet)
+    })
+    return () => {
+      socket.off('chat:message') // Isaac estuvo aqui (posdata: fue una IA, pero el le dio TAB)
+    }
+  }, [updateTweets])
+
   return (
     <form className="w-11/12 h-fit flex flex-col items-end gap-3" onSubmit={handleSubmit}>
       <textarea
