@@ -32,6 +32,7 @@ function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProp
 
     socket.emit('chat:message', JSON.stringify(newTweet))
     updateTweets(newTweet)
+
     setText('')
 
     if (textareaRef.current) {
@@ -85,7 +86,6 @@ function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProp
     socket.on('chat:message', (data) => {
       const newTweet = JSON.parse(data)
 
-      console.log(newTweet)
       updateTweets(newTweet)
     })
     return () => {
