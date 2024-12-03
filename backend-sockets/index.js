@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
-    origin: "https://twitter-clon-frontend-tau.vercel.app/",
+    origin: ["https://twitter-clon-frontend-tau.vercel.app/", "https://twitter-clon-frontend-git-main-josepdevelopers-projects.vercel.app/"],
   },
 });
 
