@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(cors());
 const server = http.createServer(app);
-const io = new SocketServer(server);
+const io = new SocketServer(server, { cors: ['https://twitter-clon-frontend-tau.vercel.app/', 'https://twitter-clon-frontend-git-main-josepdevelopers-projects.vercel.app/'] });
 
 app.use(logger('dev'));
 
