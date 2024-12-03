@@ -17,8 +17,6 @@ app.use(logger('dev'));
 
 io.on("connection", (socket) => {
   socket.on("chat:message", (data) => {
-    console.log(data)
-
     socket.broadcast.emit("chat:message", data);
   });
 });
