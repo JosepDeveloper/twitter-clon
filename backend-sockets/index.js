@@ -3,7 +3,7 @@ import http from 'node:http'
 import logger from 'morgan'
 import { Server as SocketServer } from 'socket.io'
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 const server = http.createServer(app);
