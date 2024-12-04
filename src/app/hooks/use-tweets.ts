@@ -4,6 +4,15 @@ import { TweestType } from '../types/tweet.types'
 function useTweets () {
   const [tweets, setTweets] = useState<TweestType[]>([])
 
+  const updateTweetsSockets = (newTweets: TweestType) => {
+    const tweet = {
+      ...newTweets,
+      id: tweets.length + 1
+    }
+
+    setTweets(prevTwerst => [tweet, ...prevTwerst])
+  }
+
   const updateTweets = async (newTweets: TweestType) => {
     const tweet = {
       ...newTweets,
@@ -18,9 +27,7 @@ function useTweets () {
       },
       body: JSON.stringify({ message: tweet.textMarkdown, username: tweet.nickname })
     })
-    const data = await response.json()
 
-    console.log(data)
     setTweets(prevTwerst => [tweet, ...prevTwerst])
   }
 
@@ -37,7 +44,8 @@ function useTweets () {
 
   return {
     tweets,
-    updateTweets
+    updateTweets,
+    updateTweetsSockets
   }
 }
 

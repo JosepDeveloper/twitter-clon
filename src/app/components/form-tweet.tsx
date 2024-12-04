@@ -5,12 +5,13 @@ import { socket } from '@/lib/socket'
 
 interface FormTweetProps {
   updateTweets: (newTweet: TweestType) => void
+  updateTweetsSockets: (newTweet: TweestType) => void
   session: boolean
   username: string
   imageURL: string
 }
 
-function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProps) {
+function FormTweet ({ updateTweets, session, username, imageURL, updateTweetsSockets }: FormTweetProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -34,7 +35,6 @@ function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProp
     updateTweets(newTweet)
 
     setText('')
-
     if (textareaRef.current) {
       textareaRef.current.style.height = '80px'
     }
@@ -86,7 +86,7 @@ function FormTweet ({ updateTweets, session, username, imageURL }: FormTweetProp
     socket.on('chat:message', (data) => {
       const newTweet = JSON.parse(data)
 
-      updateTweets(newTweet)
+      updateTweetsSockets(newTweet)
     })
     return () => {
       socket.off('chat:message') // Isaac estuvo aqui (posdata: fue una IA, pero el le dio TAB)

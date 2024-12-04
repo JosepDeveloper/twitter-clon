@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "standard",
-    "next/core-web-vitals",
-    "next/typescript"
-  ]
-}

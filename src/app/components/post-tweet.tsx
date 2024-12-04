@@ -7,6 +7,7 @@ import { FormTweet } from './form-tweet'
 
 interface PostTweetProps {
   updateTweets: (newTweet: TweestType) => void
+  updateTweetsSockets: (newTweet: TweestType) => void
   session: boolean
   username: string
   imageURL: string
@@ -40,7 +41,7 @@ async function getUser (username: string, imageURL: string) {
   return { username: dataPost.data.username, imageURL: dataPost.data.imageURL }
 }
 
-function PostTweet ({ updateTweets, session, username, imageURL }: PostTweetProps) {
+function PostTweet ({ updateTweets, session, username, imageURL, updateTweetsSockets }: PostTweetProps) {
   let avatar = 'https://i.pravatar.cc/150?u=a042581f4e29026024d'
   let name = 'Anonymous'
 
@@ -68,7 +69,7 @@ function PostTweet ({ updateTweets, session, username, imageURL }: PostTweetProp
       <Avatar src={avatar} name={name}/>
     </div>
 
-    <FormTweet updateTweets={updateTweets} imageURL={avatar} username={name} session={session} />
+    <FormTweet updateTweets={updateTweets} imageURL={avatar} username={name} session={session} updateTweetsSockets={updateTweetsSockets} />
   </div>
   )
 }

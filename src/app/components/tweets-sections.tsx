@@ -5,7 +5,7 @@ import { PostTweet } from './post-tweet'
 import { Tweets } from './tweets'
 
 function TweetsSections () {
-  const { tweets, updateTweets } = useTweets()
+  const { tweets, updateTweets, updateTweetsSockets } = useTweets()
   const { data: session } = useSession()
 
   let isSession = false
@@ -17,7 +17,7 @@ function TweetsSections () {
   return (
     <div className='border-x border-white/20 pt-5'>
       <header className=' min-h-40 px-6 pb-6'>
-        <PostTweet updateTweets={updateTweets} session={isSession} username={session?.user?.name as string} imageURL={session?.user?.image as string} />
+        <PostTweet updateTweets={updateTweets} updateTweetsSockets={updateTweetsSockets} session={isSession} username={session?.user?.name as string} imageURL={session?.user?.image as string} />
       </header>
 
       <section>
