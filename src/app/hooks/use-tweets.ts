@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { TweestType } from '../types/tweet.types'
 
-function useTweets () {
-  const [tweets, setTweets] = useState<TweestType[]>([])
+function useTweets (tweetsData: any) {
+  const [tweets, setTweets] = useState<TweestType[]>(tweetsData)
 
   const updateTweetsSockets = (newTweets: TweestType) => {
     const tweet = {
@@ -30,17 +30,6 @@ function useTweets () {
 
     setTweets(prevTwerst => [tweet, ...prevTwerst])
   }
-
-  useEffect(() => {
-    const getTweets = async () => {
-      const response = await fetch('/api/tweets', { cache: 'no-cache' })
-      const tweets = await response.json()
-
-      setTweets(tweets.data)
-    }
-
-    getTweets()
-  }, [])
 
   return {
     tweets,

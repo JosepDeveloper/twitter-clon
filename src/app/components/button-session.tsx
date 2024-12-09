@@ -1,15 +1,16 @@
-'use client'
-import { useSession } from 'next-auth/react'
+import { getServerSession } from 'next-auth'
 import { ButtonLogin } from './button-login'
 import { ButtonSingOut } from './button-sing-out'
+import { OPTIONS_SESSION } from '@/lib/session'
 
-function ButtonSession () {
-  const { data: session } = useSession()
+async function ButtonSession () {
+  const session = await getServerSession(OPTIONS_SESSION) 
 
+  const isUserLoged = session !== null
   return (
     <>
       {
-        session
+        isUserLoged
           ? <ButtonSingOut />
           : <ButtonLogin />
       }

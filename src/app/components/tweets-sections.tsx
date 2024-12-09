@@ -1,12 +1,11 @@
 'use client'
-import { useSession } from 'next-auth/react'
 import { useTweets } from '../hooks/use-tweets'
 import { PostTweet } from './post-tweet'
 import { Tweets } from './tweets'
+import { Session } from 'next-auth'
 
-function TweetsSections () {
-  const { tweets, updateTweets, updateTweetsSockets } = useTweets()
-  const { data: session } = useSession()
+function TweetsSections ({session, tweetsData}: { session: Session | null, tweetsData: any }) {
+  const { tweets, updateTweets, updateTweetsSockets } = useTweets(tweetsData)
 
   let isSession = false
 

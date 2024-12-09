@@ -3,13 +3,13 @@ import { TwitterIcon } from '../../components/icons/twitter'
 import { HomeIcon } from '../../components/icons/home-icons'
 import { SearchIcons } from '@/components/icons/search-icons'
 import { ButtonSession } from './button-session'
-import { WrapperSessionPrivider } from './wrapper-session-provider'
 
 interface HeaderProps {
   className?: string
 }
 
 async function Header ({ className }: HeaderProps) {
+
   return (
     <header className={`${className} pt-5 flex flex-col sticky top-0 h-fit justify-between gap-10`}>
       <div>
@@ -55,9 +55,7 @@ async function Header ({ className }: HeaderProps) {
         </nav>
       </div>
 
-      <WrapperSessionPrivider>
-        <ButtonSession />
-      </WrapperSessionPrivider>
+      <ButtonSession />
     </header>
   )
 }
