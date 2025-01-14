@@ -18,16 +18,16 @@ import useScreenSize from '../hooks/useScreenSize';
  */
 function ButtonLogin(): JSX.Element {
 
-  const {width,heigth} = useScreenSize()
+  const { width = 0 } = useScreenSize()
 
   return (
     <button
       type="button"
-      className=" w-[95%] text-center flex justify-center text-white bg-[#24292F] hover:bg-[#24292F]/70 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2 w-[226px] transition-colors ease-linear duration-75"
+      className="w-[95%] text-center flex justify-center text-white bg-[#24292F] hover:bg-[#24292F]/70 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 items-center dark:focus:ring-gray-500 me-2 mb-2 transition-colors ease-linear duration-75"
       onClick={() => signIn('github')}
     >
-      { width < 1195 ? ( null ): <GithubIcon /> }
-    {width < 490 ? 'Iniciar sesion' : 'Iniciar sesion con github'}
+      {width < 1195 ? (null) : <GithubIcon />}
+      {width < 490 ? 'Iniciar sesion' : 'Iniciar sesion con github'}
     </button>
   );
 }
