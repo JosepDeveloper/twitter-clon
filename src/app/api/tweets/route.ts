@@ -39,6 +39,8 @@ export async function GET(): Promise<Response> {
     urlImage: tweet.image_url,
   }));
 
+  console.log(tweets)
+
   // Devuelve una respuesta JSON con los tweets encontrados
   return Response.json({ message: 'Tweets found', data: tweets.reverse() });
 }

@@ -23,8 +23,7 @@ const getTweets = async () => {
     FROM 
       tweets
     JOIN 
-      users ON tweets.user_id = users.id
-    LIMIT 20 OFFSET 0;
+      users ON tweets.user_id = users.id;
   `);
 
   const tweets = responseSQL.rows.map((tweet) => ({
