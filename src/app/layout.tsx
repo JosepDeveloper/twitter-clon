@@ -1,5 +1,6 @@
 import { Onest } from 'next/font/google';
 import './globals.css';
+import Head from 'next/head';
 
 /**
  * Metadatos de la aplicación.
@@ -55,6 +56,21 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang="en">
+      <Head>
+        <meta
+          property="og:image"
+          content="/screen-page.webp"
+        />
+        <meta
+          property="og:image:alt"
+          content="Chigüire.Net"
+        />
+
+        <meta
+          name='twitter:image'
+          content='/screen-page.webp'
+        />
+      </Head>
       <body
         className={`
           ${onest.className} antialiased
