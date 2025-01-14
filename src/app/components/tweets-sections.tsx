@@ -4,38 +4,40 @@ import { useTweets } from '../hooks/use-tweets';
 import { PostTweet } from './post-tweet';
 import { Tweets } from './tweets';
 import { Session } from 'next-auth';
+import { useEffect, useRef } from 'react';
 
-/**
- * Propiedades del componente TweetsSections.
- * 
- * @interface TweetsSectionsProps
- * @property {Session | null} session - Información de la sesión del usuario.
- * @property {any} tweetsData - Datos iniciales de los tweets.
- */
 interface TweetsSectionsProps {
   session: Session | null;
-  tweetsData: any;
+  tweetsData: TweestType[];
 }
 
-/**
- * Componente TweetsSections.
- * Representa una sección de la aplicación donde los usuarios pueden publicar tweets y ver una lista de tweets existentes.
- * 
- * @component
- * @param {TweetsSectionsProps} props - Propiedades del componente.
- * @param {Session | null} props.session - Información de la sesión del usuario.
- * @param {any} props.tweetsData - Datos iniciales de los tweets.
- * @returns {JSX.Element} - Elemento JSX que representa la sección de tweets.
- * 
- * @example
- * // Ejemplo de uso del componente TweetsSections
- * <TweetsSections session={session} tweetsData={tweetsData} />
- */
 function TweetsSections({ session, tweetsData }: TweetsSectionsProps): JSX.Element {
-  // Obtiene los tweets y las funciones para actualizarlos
-  const { tweets, updateTweets, updateTweetsSockets } = useTweets(tweetsData);
+  const { tweets, updateTweets, updateTweetsSockets, loadMoreTweets, loading, hasMore } =
+    useTweets(tweetsData);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
-  // Verifica si el usuario ha iniciado sesión
+  // Configura el Intersection Observer para infinite scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading && hasMore) {
+          loadMoreTweets();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [loading, hasMore]);
+
   let isSession = false;
   if (session) {
     isSession = true;
@@ -43,7 +45,6 @@ function TweetsSections({ session, tweetsData }: TweetsSectionsProps): JSX.Eleme
 
   return (
     <div className="border-x border-white/20 pt-5">
-      {/* Encabezado con el formulario para publicar tweets */}
       <header className="min-h-40 px-6 pb-6">
         <PostTweet
           updateTweets={updateTweets}
@@ -54,7 +55,6 @@ function TweetsSections({ session, tweetsData }: TweetsSectionsProps): JSX.Eleme
         />
       </header>
 
-      {/* Sección que muestra la lista de tweets */}
       <section>
         <ul className="list-none m-0 [&>li]:mt-0 [&>li]:px-6 [&>li]:border-t [&>li]:border-white/20 border-white/20 pb-6">
           {tweets.map((tweet, index) => (
@@ -67,14 +67,14 @@ function TweetsSections({ session, tweetsData }: TweetsSectionsProps): JSX.Eleme
             </li>
           ))}
         </ul>
+        {/* Elemento para detectar cuándo el usuario llega al final */}
+        <div ref={loaderRef} className="p-4">
+          {loading && 'Cargando más tweets...'}
+          {!hasMore && 'No hay más tweets para cargar.'}
+        </div>
       </section>
     </div>
   );
 }
 
-/**
- * Exporta el componente TweetsSections para su uso en otros módulos.
- * 
- * @exports TweetsSections
- */
 export { TweetsSections };

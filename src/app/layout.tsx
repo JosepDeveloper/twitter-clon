@@ -75,7 +75,9 @@ export default function RootLayout({
         className={`
           ${onest.className} antialiased
           bg-black
-          px-[180px]
+          w-[100vw]
+          h-[100vh]
+          overflow-x-hidden
         `}
         suppressHydrationWarning
       >

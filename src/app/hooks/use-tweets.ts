@@ -11,9 +11,15 @@ import { TweestType } from '../types/tweet.types';
  * @property {TweestType[]} tweets - Lista actual de tweets.
  * @property {Function} updateTweets - Función para agregar un nuevo tweet y enviarlo a la API.
  * @property {Function} updateTweetsSockets - Función para agregar un nuevo tweet localmente (sin enviarlo a la API).
+ * @property {Function} loadMoreTweets - Función para cargar más tweets (paginación).
+ * @property {boolean} loading - Indica si se están cargando más tweets.
+ * @property {boolean} hasMore - Indica si hay más tweets disponibles para cargar.
  */
 function useTweets(tweetsData: TweestType[]) {
   const [tweets, setTweets] = useState<TweestType[]>(tweetsData);
+  const [page, setPage] = useState(1); // Página actual para la paginación
+  const [loading, setLoading] = useState(false); // Estado de carga
+  const [hasMore, setHasMore] = useState(true); // Indica si hay más tweets para cargar
 
   /**
    * Agrega un nuevo tweet localmente (sin enviarlo a la API).
@@ -61,10 +67,44 @@ function useTweets(tweetsData: TweestType[]) {
     setTweets((prevTweets) => [tweet, ...prevTweets]);
   };
 
+  /**
+   * Carga más tweets desde la API (paginación).
+   * 
+   * @function loadMoreTweets
+   * @returns {Promise<void>} - Una promesa que se resuelve cuando se han cargado más tweets.
+   */
+  const loadMoreTweets = async () => {
+    if (loading || !hasMore) return; // Evita cargar más si ya se está cargando o no hay más tweets
+
+    setLoading(true);
+
+    try {
+      // Simula una llamada a la API para obtener más tweets
+      const response = await fetch(`/api/tweets?page=${page + 1}`, {
+        cache: 'no-cache',
+      });
+      const newTweets: TweestType[] = await response.json();
+
+      if (newTweets.length > 0) {
+        setTweets((prevTweets) => [...prevTweets, ...newTweets]);
+        setPage((prevPage) => prevPage + 1);
+      } else {
+        setHasMore(false); // No hay más tweets para cargar
+      }
+    } catch (error) {
+      console.error('Error al cargar más tweets:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     tweets,
     updateTweets,
     updateTweetsSockets,
+    loadMoreTweets,
+    loading,
+    hasMore,
   };
 }
 

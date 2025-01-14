@@ -32,14 +32,15 @@ interface HeaderProps {
 async function Header({ className }: HeaderProps): Promise<JSX.Element> {
   return (
     <header
-      className={`${className} pt-5 flex flex-col sticky top-0 h-fit justify-between gap-10`}
+      className={`${className} w-full pt-5 flex justify-center sm:flex-col sticky top-0 h-fit justify-between gap-10`}
     >
       {/* Enlace a la página principal */}
-      <div>
+      <div className='w-[100%]'>
         <Link
           href="/"
           className={`
-            w-[70%] p-2 rounded-full
+            hidden
+            sm:flex sm:w-[70%] p-2 rounded-full
             flex gap-2 justify-start items-center
             hover:bg-gray-700/65 transition-colors ease-linear
           `}
@@ -48,14 +49,14 @@ async function Header({ className }: HeaderProps): Promise<JSX.Element> {
         </Link>
 
         {/* Barra de navegación */}
-        <nav>
-          <ul className="list-none m-0 [&>li]:mt-0">
+        <nav className='flex justify-start'>
+          <ul className="list-none flex sm:flex-col m-0 [&>li]:mt-0">
             {/* Enlace a "Inicio" */}
             <li>
               <Link
                 href={'/'}
                 className={`
-                  w-[50%] p-2 rounded-full
+                  w-[100%] p-2 rounded-full
                   flex gap-2 justify-start items-center
                   hover:bg-gray-700/65 transition-colors ease-linear
                 `}
@@ -69,7 +70,7 @@ async function Header({ className }: HeaderProps): Promise<JSX.Element> {
               <Link
                 href={'#'}
                 className={`
-                  w-[50%] p-2 rounded-full
+                  w-[100%] p-2 rounded-full
                   flex gap-2 justify-start items-center
                   hover:bg-gray-700/65 transition-colors ease-linear
                 `}

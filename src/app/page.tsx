@@ -4,18 +4,6 @@ import { TweetsSections } from './components/tweets-sections';
 import { getServerSession } from 'next-auth';
 import { tursoClient } from '@/lib/db/turso-client';
 
-/**
- * Obtiene los tweets de la base de datos.
- * Realiza una consulta SQL para obtener los últimos 20 tweets, junto con la información del usuario que los publicó.
- * 
- * @async
- * @function getTweets
- * @returns {Promise<Array<Object>>} - Una promesa que resuelve en un array de objetos que representan los tweets.
- * @property {string} id - ID del tweet.
- * @property {string} textMarkdown - Contenido del tweet en formato Markdown.
- * @property {string} nickname - Nombre de usuario del autor del tweet.
- * @property {string} urlImage - URL de la imagen de perfil del autor del tweet.
- */
 const getTweets = async () => {
   const responseSQL = await tursoClient.execute(`
     SELECT 
@@ -36,31 +24,27 @@ const getTweets = async () => {
   return tweets.reverse();
 };
 
-/**
- * Página principal de la aplicación.
- * Obtiene la sesión del usuario y los tweets, y los pasa a los componentes `Header` y `TweetsSections`.
- * 
- * @async
- * @function Home
- * @returns {Promise<JSX.Element>} - Una promesa que resuelve en el elemento JSX que representa la página principal.
- */
 export default async function Home() {
-  // Obtiene la sesión del usuario
   const session = await getServerSession(OPTIONS_SESSION);
-
-  // Obtiene los tweets de la base de datos
   const tweets = await getTweets();
 
   return (
-    <div className="flex h-dvh">
-      {/* Encabezado de la aplicación */}
-      <Header className="w-[20%]" />
-
-      {/* Contenido principal de la página */}
-      <main className="w-[80%]">
+    <div className="flex flex-col sm:flex-row w-full gap-2 mx-auto h-dvh">
+      {/* Contenido principal de la página (arriba en móvil, a la derecha en desktop) */}
+      <main className="w-full sm:w-[60%] order-1 sm:order-2 overflow-y-auto scrollbar-hide h-[calc(100vh-4rem)] sm:h-[calc(100vh-2rem)] max-h-[100%] overflow-y-auto
+  [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
         {/* Sección de tweets */}
         <TweetsSections session={session} tweetsData={tweets} />
       </main>
+
+      {/* Encabezado de la aplicación (abajo en móvil, a la izquierda en desktop) */}
+      <Header className="w-full px-2 sm:px-[15px] z-2 bg-black sm:sticky sm:top-0 sm:left-0 sm:w-[20%] order-2 sm:order-1 fixed bottom-0 sm:relative" />
     </div>
   );
 }
