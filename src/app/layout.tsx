@@ -13,7 +13,6 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Chigüire.Net (Twitter Clon)',
   description: 'Un Clon de Twitter, hecho con NextJS, Redis y PostgreSQL',
-  url: 'https://twitter-clon-sepia.vercel.app/',
   images: [
     {
       url: '/screen-page.webp', // Must be an absolute URL
