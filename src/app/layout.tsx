@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Onest } from 'next/font/google';
 import './globals.css';
 
@@ -6,13 +5,13 @@ import './globals.css';
  * Metadatos de la aplicación.
  * Define el título y la descripción que se mostrarán en el navegador y en los motores de búsqueda.
  * 
- * @constant {Metadata} metadata
  * @property {string} title - Título de la aplicación.
  * @property {string} description - Descripción de la aplicación.
  */
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Chigüire.Net (Twitter Clon)',
   description: 'Un Clon de Twitter, hecho con NextJS, Redis y PostgreSQL',
+  url: 'https://twitter-clon-sepia.vercel.app/',
   images: [
     {
       url: '/screen-page.webp', // Must be an absolute URL
