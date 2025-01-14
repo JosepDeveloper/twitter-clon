@@ -3,6 +3,7 @@ import { Header } from './components/header';
 import { TweetsSections } from './components/tweets-sections';
 import { getServerSession } from 'next-auth';
 import { tursoClient } from '@/lib/db/turso-client';
+import { urlImage } from './types/tweet.types';
 
 const getTweets = async () => {
   const responseSQL = await tursoClient.execute(`
@@ -16,9 +17,9 @@ const getTweets = async () => {
 
   const tweets = responseSQL.rows.map((tweet) => ({
     id: tweet.id,
-    textMarkdown: tweet.message,
-    nickname: tweet.username,
-    urlImage: tweet.image_url,
+    textMarkdown: tweet.message as string,
+    nickname: tweet.username as string,
+    urlImage: tweet.image_url as urlImage,
   }));
 
   return tweets.reverse();
@@ -31,7 +32,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col sm:flex-row w-full gap-2 mx-auto h-dvh">
       {/* Contenido principal de la página (arriba en móvil, a la derecha en desktop) */}
-      <main className="w-full sm:w-[60%] order-1 sm:order-2 overflow-y-auto scrollbar-hide h-[calc(100vh-4rem)] sm:h-[calc(100vh-2rem)] max-h-[100%] overflow-y-auto
+      <main className="w-full sm:w-[60%] order-1 sm:order-2 overflow-y-auto scrollbar-hide h-[calc(100vh-4rem)] sm:h-[calc(100vh-2rem)] max-h-[100%]
   [&::-webkit-scrollbar]:w-2
   [&::-webkit-scrollbar-track]:rounded-full
   [&::-webkit-scrollbar-track]:bg-gray-100
@@ -44,7 +45,7 @@ export default async function Home() {
       </main>
 
       {/* Encabezado de la aplicación (abajo en móvil, a la izquierda en desktop) */}
-      <Header className="w-full px-2 sm:px-[15px] z-2 bg-black sm:sticky sm:top-0 sm:left-0 sm:w-[20%] order-2 sm:order-1 fixed bottom-0 sm:relative" />
+      <Header className="w-full px-2 sm:px-[15px] z-2 bg-black sm:sticky sm:top-0 sm:left-0 sm:w-[20%] order-2 sm:order-1 fixed bottom-0" />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTweets } from '../hooks/use-tweets';
+import { TweestType } from '../types/tweet.types';
 import { PostTweet } from './post-tweet';
 import { Tweets } from './tweets';
 import { Session } from 'next-auth';
