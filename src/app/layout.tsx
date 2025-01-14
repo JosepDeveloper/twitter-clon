@@ -59,7 +59,7 @@ export default function RootLayout({
       <Head>
         <meta
           property="og:image"
-          content="/screen-page.webp"
+          content="https://twitter-clon-sepia.vercel.app/screen-page.webp"
         />
         <meta
           property="og:image:alt"
@@ -68,7 +68,7 @@ export default function RootLayout({
 
         <meta
           name='twitter:image'
-          content='/screen-page.webp'
+          content='https://twitter-clon-sepia.vercel.app/screen-page.webp'
         />
       </Head>
       <body
